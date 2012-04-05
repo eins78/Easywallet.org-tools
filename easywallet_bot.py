@@ -86,6 +86,8 @@ if not wallet_hash['id']:
     wallet_id = call_api('new_wallet', urllib.urlencode({'a': "a",}))['wallet_id']
     wallet_hash['id']=wallet_id
 
+wallet_id=wallet_hash['id']
+print "Wallet found with id", wallet_id
 
 weighted_prices=get_json(u"http://bitcoincharts.com/t/weighted_prices.json")
 if not weighted_prices:
