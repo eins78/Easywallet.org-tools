@@ -38,7 +38,7 @@ def initiate_payment(cmd, wallet_id):
     except ValueError:
         return "Unable to parse amount"
 
-    post_data = urllib.urlencode({'address': address, 'amount': amount})
+    post_data = urllib.urlencode({'address': address, 'amount': amount, 'currency': 'BTC'})
     result = call_api('w/%s/payment' % wallet_id, post_data)
     return result['message']
 
