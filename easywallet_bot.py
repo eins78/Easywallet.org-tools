@@ -24,15 +24,22 @@ LINE_DELIMITER = '\r\n'
 
 change_parameters=False
 
+def printhelp():
+    print "Easywallet.org bot"
+    print "Command line arguments:"
+    print "--change_parameters - modify the parameters of the bot"
+    print "No other args yet. Just place this in your crontab, and you will have auto-loading wallet."
+
 if __name__ == '__main__':
     if len(sys.argv)>=2:
         if sys.argv[1]=="--change_parameters":
             change_parameters=True
         elif sys.argv[1]=="--help":
-            print "Easywallet.org bot"
-            print "Command line arguments:"
-            print "--change_parameters - modify the parameters of the bot"
-            print "No other args yet. Just place this in your crontab, and you will have auto-loading wallet."
+            printhelp()
+            exit(0)
+        else:
+            print "Command not found!"
+            printhelp()
             exit(0)
     
 
