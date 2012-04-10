@@ -22,6 +22,20 @@ SITE_URL="https://easywallet.org"
 API_URL = SITE_URL+'/api/v1/'
 LINE_DELIMITER = '\r\n'
 
+change_parameters=False
+
+if __name__ == '__main__':
+    if len(sys.argv)>=2:
+        if sys.argv[1]=="--change_parameters":
+            change_parameters=True
+        elif sys.argv[1]=="--help":
+            print "Easywallet.org bot"
+            print "Command line arguments:"
+            print "--change_parameters - modify the parameters of the bot"
+            print "No other args yet. Just place this in your crontab, and you will have auto-loading wallet."
+            exit(0)
+    
+
 def call_api(url_suffix, data = None):
     f = urllib.urlopen(API_URL + url_suffix, data)
     data = f.read()
@@ -97,14 +111,14 @@ if "USD" not in weighted_prices.keys():
     print "Error, USD not in fetched prices"
     exit(0)
 
-if 'currency' not in wallet_hash.keys():
+if 'currency' not in wallet_hash.keys() or change_parameters:
     print "Available currencies:", (", ".join(weighted_prices.keys()))
     selected_currency = raw_input('Your currency [USD]: ')
     if selected_currency not in weighted_prices.keys():
         selected_currency="USD"
     wallet_hash['currency']=selected_currency
 
-if 'min_wallet_amount' not in wallet_hash.keys():
+if 'min_wallet_amount' not in wallet_hash.keys() or change_parameters:
     s = raw_input('Min amount to keep in wallet [50]: ')
     if s:
         try:
@@ -114,7 +128,7 @@ if 'min_wallet_amount' not in wallet_hash.keys():
     else:
         wallet_hash['min_wallet_amount']=Decimal(50)
 
-if 'max_wallet_amount' not in wallet_hash.keys():
+if 'max_wallet_amount' not in wallet_hash.keys() or change_parameters:
     s = raw_input('Max amount to keep in wallet [100]: ')
     if s:
         try:
