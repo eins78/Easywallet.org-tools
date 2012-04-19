@@ -187,9 +187,9 @@ if bal_currency<min_wallet_amount:
     exit(0)
 
 balance=balance_array['balance']
-print "Balance (confirmed): %s BTC (%.2f %s)" % (format_btc_amount(balance), bal_currency, use_currency)
 bal=Decimal(balance)
 bal_currency=(bal*rate)
+print "Balance (confirmed): %s BTC (%.2f %s)" % (format_btc_amount(balance), bal_currency, use_currency)
 
 if bal_currency>max_wallet_amount:
     transfer_amount_currency=Decimal(str(random.uniform(float(1), float(bal_currency-max_wallet_amount)))).quantize(Decimal("0.01"))
