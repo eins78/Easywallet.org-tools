@@ -187,12 +187,12 @@ if bal_currency<min_wallet_amount:
     exit(0)
 
 balance=balance_array['balance']
+print "Balance (confirmed): %s BTC (%.2f %s)" % (format_btc_amount(balance), bal_currency, use_currency)
 bal=Decimal(balance)
 bal_currency=(bal*rate)
-print "Balance (confirmed): %s BTC (%.2f %s)" % (format_btc_amount(balance), bal_currency, use_currency)
 
 if bal_currency>max_wallet_amount:
-    transfer_amount_currency=Decimal(str(random.uniform(float(1), float(bal_currency-max_wallet_amount)))).quantize(Decimal("0.01"))
+    transfer_amount_currency=Decimal(str(random.uniform(float(bal_currency-min_wallet_amount), float(1)))).quantize(Decimal("0.01"))
     transfer_amount=(transfer_amount_currency/rate).quantize(Decimal("0.01"))
     print "Initiating incoming transfer of amount %.2f BTC (%.2f %s)" % (transfer_amount, transfer_amount_currency, use_currency)
     p = subprocess.Popen(['bitcoind', 'getnewaddress'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
